@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="layout--block loginBlock">
+    <nav class="layout--nav">
+        <h1 class="logo"><span>Tag</span>board</h1>
+        {% if page == 'login' %}
+        <p><small>LOG IN</small></p>
+        <a href="{% url 'register' %}"><small>or <span>REGISTER</span></small></a>
+        {% else %}
+        <p><small>REGISTER</small></p>
+        <a href="{% url 'login' %}"><small>or <span>LOG IN</span></small></a>
+        {% endif %}
+    </nav>
+    <form action="" method="POST" class="layout--form loginBlock__loginForm">
+        {% csrf_token %}
+        {% if page == 'login' %}
+            <label class="layout--label">Username</label>
+            <input class="layout--input" type="text" name="username" placeholder="pepa.mlaticka">
+            <label class="layout--label">Password</label>
+            <input class="layout--input" type="password" name="password" placeholder="***********">
+            <div class="layout--cl-2">
+                <a href=""><small>Forget password</small></a>
+                <input class="layout--input" type="submit" value="SUBMIT">
+            </div>
+        {% else %}
+        
+            {% for field in form %}
+            <label class="layout--label">{{ field.label }}</label>
+            {{ field }}
+            {% endfor %}
+            <div class="layout--cl-2">
+                <p class="layout--checkbox"><input type="checkbox">Remember password</p>
+                <input class="layout--input" type="submit" value="SUBMIT">
+            </div>
+            
+        {% endif %}
+
+    </form>
+</div>
+
+{% endblock content %}

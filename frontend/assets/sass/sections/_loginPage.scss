@@ -1,0 +1,23 @@
+.loginBlock {
+    min-width: 750px;
+
+    small > span {
+        color: $color__pink-light;
+    }
+}
+
+.loginBlock__loginForm {
+    margin: 0 32px 40px;
+
+    small {
+        color: $color__pink-light;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    div {
+        margin-top: 56px;
+    }
+}

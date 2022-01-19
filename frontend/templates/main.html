@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Add notes, lists and organize your time.">
+    <meta name="author" content="František Špunda">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static '' %}" type="image/png">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <!-- Scripts -->
+    <script src="{% static 'index.js' %}" defer></script>
+    <script src="{% static 'scripts/poop.js' %}" defer></script>
+    <script src="{% static 'scripts/main.js' %}" defer></script>
+
+    <!-- PWA link files -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#F2798F">
+    <link rel="apple-touch-icon" href="{% static 'images/random-logo.png' %}">
+
+    <title>TagBoard | organize your time</title>
+</head>
+<body>
+
+    {% if messages %}
+      <ul class='layout--message_list'>
+        {% for message in messages %}
+          <li class="layout--message js--modal layout--message-{{ message.tags }}">
+            <div class="layout--cl-2">
+              {% if message.tags == 'error' %}
+                <i style="width: 20px;" class="icon icon-error_outline"></i>
+              {% elif message.tags == 'info' %}
+                <i style="width: 20px;" class="icon icon-info_outline"></i>
+              {% elif message.tags == 'success' %}
+                <i style="width: 20px;" class="icon icon-check_circle_outline"></i>
+              {% elif message.tags == 'warning' %}
+                <i style="width: 20px;" class="icon icon-warning_amber"></i>
+              {% endif %}
+              <p>{{ message }}</p>
+            </div>
+            <i class="icon icon-close js--modal-close layout--button"></i>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="content layout-flex layout-flex--center_center">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

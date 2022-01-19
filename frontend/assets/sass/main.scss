@@ -1,0 +1,24 @@
+// imoprt core
+@import 'core/colorPalette';
+@import 'core/typography';
+@import 'core/icons';
+@import 'core/layout';
+@import 'core/scrollbar';
+
+// import sections
+@import 'sections/loginPage';
+@import 'sections/boardPage';
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body > .content {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../images/content-bg.svg);
+}

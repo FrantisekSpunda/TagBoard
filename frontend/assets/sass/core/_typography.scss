@@ -1,0 +1,47 @@
+// base font-family
+$base-font: 'Open Sans', sans-serif;
+
+// base line-hight
+$base-line-height: 1.6;
+
+// font weights
+$font-semibold: 600;
+$font-medium: 500;
+$font-regular: 400;
+
+// font-sizes
+$font-big: 24px;
+$font-normal: 18px;
+$font-little: 14px;
+$font-tiny: 12px;
+
+@function get-font($size: $font-normal, $weight: $font-medium, $line-height: $base-line-height) {
+    $font: normal $weight #{$size}/$base-line-height $base-font;
+    @return $font;
+}
+
+h1 {
+    font: get-font($font-big, $font-semibold);
+    color: $color__white;
+}
+
+h2 {
+    font: get-font($font-normal, $font-semibold);
+    color: $color__white;
+}
+
+p {
+    font: get-font($font-normal, $font-medium);
+    color: $color__white;
+}
+
+small {
+    font: get-font($font-little, $font-medium);
+    color: $color__white;
+}
+
+a {
+    font: get-font($font-normal, $font-medium);
+    color: $color__white;
+    text-decoration: none;
+}

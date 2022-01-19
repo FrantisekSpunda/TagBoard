@@ -1,0 +1,101 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="layout--block boardBlock">
+    <nav class="layout--nav">
+        <h1 class="logo"><span>Tag</span>board</h1>
+        <p></p>
+        <p></p>
+        <a href=""><small>{{ request.profile.username }}</small></a>
+        <a href="{% url 'logout' %}"><i class="icon icon-logout-1"></i></a>
+    </nav>
+    <nav id="boardBlock__nav">
+        <small class="selected">Events</small>
+        <small>Notes</small>
+        <div class="underline"></div>
+    </nav>
+    <div class="layout--cl-2" id="boardBlock__cont">
+        <ul class="boardBlock__box" id="notepad__events">
+            <li>
+                <a class="layout--button" style="width: auto;" data-target="#modal--create_event"><small>ADD&nbsp;EVENT</small><i class="icon icon-add_circle_outline"></i></a>
+            </li>
+            {% for event in events %}
+            <li>
+                <div class="layout--cl-2">
+                    <i class="icon icon-circle-small"></i>
+                    <p>{{ event.name }}</p>
+                </div>
+                <div class="layout--cl-2">
+                    <p>{{ event.time|time:'H:i' }}</p>
+                    <p>{{ event.date|date:'d.m. Y' }}</p>
+                </div>
+                <div class="layout--cl-2">
+                    <a class="js--eventForm__show layout--button"><i class="icon icon-edit"></i></a>
+                    <a class="layout--button" href="{% url 'remove-event' event.id %}"><i class="icon icon-delete_outline"></i></a>
+                </div>
+            </li>
+            <form class="js--eventForm" action="{% url 'edit-event' event.id %}" method="POST" style="display: none;">
+                {% csrf_token %}
+                <li>
+                    <div class="layout--cl-2">
+                        <i class="icon icon-circle-small"></i>
+                        <input class="layout--input" type="text" name="name" value="{{ event.name }}">
+                    </div>
+                    <div class="layout--cl-2">
+                        <input class="layout--input" type="time" name="time" value="{{ event.time|time:'H:i' }}">
+                        <input class="layout--input" type="date" name="date" value="{{ event.date|date:'Y-m-d' }}">
+                    </div>
+                    <a class="js--eventForm__submit layout--button"><i class="icon icon-check"></i></a>
+                </li>
+            </form>
+            {% endfor %}
+        </ul>
+        <div class="boardBlock__box" id="notepad__notes">
+            <div>
+                <a id="js--noteForm__add" class="layout--button" style="width: auto;"><small>ADD&nbsp;NOTE</small><i class="icon icon-add_circle_outline"></i></a>
+            </div>
+            
+            <article class="js--noteForm" style="display: none;">
+                <form action="{% url 'add-note' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="layout--input" type="text" name="name" placeholder="Type name of note">
+                    <textarea class="layout--textarea" name="text" rows="7" placeholder="Write some note for next time"></textarea>
+                    <div class="layout--cl-2">
+                        <a style="margin-left:auto;" class="js--noteForm__close layout--button"><i class="icon icon-close"></i></a>
+                        <a class="js--noteForm__submit layout--button"><i class="icon icon-check"></i></a>
+                    </div>
+                </form>
+            </article>
+
+            {% for note in notes %}
+            <article>
+                <div class="layout--cl-2">
+                    <h2>{{ note.name }}</h2>
+                    <div>
+                        <a class="js--noteForm__show layout--button"><i class="icon icon-edit"></i></a>
+                        <a class="layout--button" href="{% url 'remove-note' note.id %}"><i class="icon icon-delete_outline"></i></a>
+                    </div>
+                </div>
+                <small>{{ note.text }}</small>
+            </article>
+
+            <article class="js--noteForm" style="display: none;">
+                <form action="{% url 'edit-note' note.id %}" method="POST">
+                    {% csrf_token %}
+                    <input class="layout--input" type="text" name="name" value="{{ note.name }}">
+                    <textarea class="layout--textarea" name="text" rows="7">{{ note.text }}</textarea>
+                    <div class="layout--cl-2">
+                        <a style="margin-left:auto;" class="js--noteForm__close layout--button"><i class="icon icon-close"></i></a>
+                        <a class="js--noteForm__submit layout--button"><i class="icon icon-check"></i></a>
+                    </div>
+                </form>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% include 'notepad/modal--form.html' with form=event_form id='event' %}
+
+{% endblock content %}

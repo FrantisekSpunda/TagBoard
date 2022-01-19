@@ -1,0 +1,32 @@
+
+<div id="modal--create_{{ id }}" class="layout--modal js--modal">
+    <div class="layout--modal-cont ">
+        <div class="layout--nav">
+            <h2>Create Event</h2>
+            <i style="color: white; width: 20px;" class="icon icon-close js--modal-close"></i>
+        </div>
+        {% if id == 'event' %}
+        <form action="{% url 'add-event' %}" method="POST" class="layout--form">
+            {% csrf_token %}
+            <label class="layout--label">Name</label>
+            <input class="layout--input" type="text" name="name" placeholder="Type name of event">
+            <label class="layout--label">Time</label>
+            <input class="layout--input" type="time" name="time">
+            <label class="layout--label">Date</label>
+            <input class="layout--input" type="date" name="date">
+            <label class="layout--label"></label>
+            <input class="layout--input" type="submit" value="SUBMIT">
+        </form>
+        {% elif id == 'note' %}
+        <form action="{% url 'add-note' %}" method="POST" class="layout--form">
+            {% csrf_token %}
+            {% for field in form %}
+            <label class="layout--label">{{ field.label }}</label>
+            {{ field }}
+            {% endfor %}
+            <label class="layout--label"></label>
+            <input class="layout--input" type="submit" value="SUBMIT">
+        </form>
+        {% endif %}
+    </div>
+</div>

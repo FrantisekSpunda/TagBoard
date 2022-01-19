@@ -1,0 +1,8 @@
+{
+    "name": "TagBoard",
+    "short_name": "TagBoard",
+    "start_url": "../",
+    "background_color": "#F24B78",
+    "theme_color": "#F2798F",
+    "display": "standalone"
+}
